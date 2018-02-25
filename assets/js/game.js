@@ -122,28 +122,28 @@ $(document).ready(function() {
       console.log( index + ": " + obj.charName );
       // block elements used to build each character's 'game card'
       var divCardOuter = $("<div>");
-      var divButton = $("<button>");
+      var divCardInner = $("<div>");
       var upperCardBody = $("<div>");
       var upperCardPar = $("<p>");
-      var buttonImg = $("<img>");
+      var swImg = $("<img>");
       var imgFile = IMG_PATH + obj.imgName;
       var lowerCardBody = $("<div>");
       var lowerCardPar = $("<p>");
 
-      // give divCardOuter the following classes 
-      divCardOuter.attr("id", obj.swCharId + "-card");
-      divCardOuter.addClass("card col-xs-12 col-sm-3 col-md-3 col-lg-2 sw-card");
-      divCardOuter.attr("style","width: 25rem;");
+      // give divCardOuter the following classes and attributes
+      divCardOuter.attr("id", obj.swCharId + "-card")
+                  .addClass("card col-xs-12 col-sm-3 col-md-3 col-lg-2 sw-card")
+                  .attr("style","width: 25rem;");
       // Append each divCardOuter to the "#available-chars" div.
       $("#available-chars").append(divCardOuter);
       // add class to button
-      divButton.addClass("sw-char-button");
+      divCardInner.addClass("sw-char-button");
       // add button to divCardOuter div
-      $(divCardOuter).append(divButton);
+      $(divCardOuter).append(divCardInner);
       // add classes to upperCardBody
-      $(upperCardBody).addClass("card-body");
-      // append upperCardBody to divButton
-      $(divButton).append(upperCardBody);
+      $(upperCardBody).addClass("card-body custom-upper-card");
+      // append upperCardBody to divCardInner
+      $(divCardInner).append(upperCardBody);
       // add classes to upper card paragraph
       $(upperCardPar).addClass("card-text sw-text");
       // add id to paragraph based on button value's id
@@ -151,17 +151,17 @@ $(document).ready(function() {
       $(upperCardPar).text(obj.charName);
       // append paragraph to upper card body
       $(upperCardBody).append(upperCardPar);
-      // add classes and attributes to buttonImg
-      $(buttonImg).addClass("sw-char img-fluid card-img-top ml-1 mr-1");
-      $(buttonImg).attr("id",obj.swCharId+"-img");
-      $(buttonImg).attr("src",imgFile);
-      $(buttonImg).attr("alt",obj.charName);
-      // append image to divButton
-      $(divButton).append(buttonImg);
+      // add classes and attributes to swImg
+      $(swImg).addClass("sw-char img-fluid card-img-top ml-1 mr-1");
+      $(swImg).attr("id",obj.swCharId+"-img");
+      $(swImg).attr("src",imgFile);
+      $(swImg).attr("alt",obj.charName);
+      // append image to divCardInner
+      $(divCardInner).append(swImg);
       // add classes to Lower card body
-      $(lowerCardBody).addClass("card-body");
-      // append lowerCardBody to divButton
-      $(divButton).append(lowerCardBody);
+      $(lowerCardBody).addClass("card-body custom-lower-card");
+      // append lowerCardBody to divCardInner
+      $(divCardInner).append(lowerCardBody);
       // lowerCardPar classes and attributes
       $(lowerCardPar).addClass("card-text sw-text");
       $(lowerCardPar).attr("id",obj.swCharId + "-health");

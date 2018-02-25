@@ -2,10 +2,39 @@
 * {
   box-sizing: border-box; }
 
-body {
-  background-color: beige;
+html body {
+  /* background image credit: https://images5.alphacoders.com/489/489261.jpg */
+  background: #26221C url("../images/starwars-background.jpg") no-repeat;
+  background-size: 100% 125%;
   font-family: "Lato", sans-serif;
   margin: 0% 2%; }
-  body .sw-text {
+  html body .custom-h1 {
+    color: #F2F2F2; }
+  html body .custom-lower-card, html body .custom-upper-card {
+    text-align: center;
+    color: black;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0.2rem; }
+  html body .sw-card {
+    margin: 0% !important;
+    color: black;
+    background-color: #F2F2F2;
+    border: 2px solid green; }
+  html body .sw-text {
     font-weight: bold;
     font-size: 80%; }
+  html body .sw-card-width {
+    width: 100rem; }
+  html body #enemies .sw-card {
+    margin: 0% !important;
+    color: black;
+    background-color: red;
+    border: 2px solid black; }
+  html body #current-defender .custom-upper-card, html body #current-defender .custom-lower-card {
+    color: #F2F2F2; }
+  html body #current-defender .sw-card {
+    margin: 0% !important;
+    background-color: black;
+    border: 2px solid green; }

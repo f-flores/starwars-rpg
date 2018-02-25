@@ -1,22 +1,68 @@
 /* stylesheet */
 
+// game font family
 $game-font: 'Lato', sans-serif;
+
+// color theme for star wars game
+$game-bg-color: beige;
+$game-color-1: #021C26;
+$game-color-2: #124559;
+$game-color-3: #26221C;
+$game-color-4: #736C63;
+$game-color-5: #F2F2F2;
 
 
 * {
   box-sizing: border-box;
 }
 
-body {
-//  background-image: url("../images/intersection.png");
-  background-color: beige;
-  font-family: $game-font;
-  margin: 0% 2%;
-  .sw-text {
-    font-weight: bold;
-    font-size: 80%;
-  }
-  .sw-card-width {
-   // width: 100rem;
+html {
+
+  body {
+    /* background image credit: https://images5.alphacoders.com/489/489261.jpg */
+    background: $game-color-3 url("../images/starwars-background.jpg") no-repeat;
+    background-size: 100% 125%;
+    font-family: $game-font;
+    margin: 0% 2%;
+    .custom-h1 {
+      color: $game-color-5;
+    }
+    .custom-lower-card, .custom-upper-card {
+      text-align: center;
+      color: black;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 0.2rem;
+    }
+    .sw-card {
+      margin: 0% !important;
+      color: black;
+      background-color: $game-color-5; 
+      border: 2px solid green; 
+    }
+    .sw-text {
+      font-weight: bold;
+      font-size: 80%;
+    }
+    .sw-card-width {
+      width: 100rem;
+    }
+    #enemies .sw-card {
+      margin: 0% !important;
+      color: black;
+      background-color: red; 
+      border: 2px solid black; 
+    }
+    #current-defender {
+      .custom-upper-card, .custom-lower-card {
+        color: $game-color-5;
+      }
+      .sw-card {
+        margin: 0% !important;
+        background-color: black; 
+        border: 2px solid green;      
+      }
+    }
   }
 }
