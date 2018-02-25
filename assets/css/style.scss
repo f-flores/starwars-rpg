@@ -1,7 +1,8 @@
 /* stylesheet */
 
 // game font family
-$game-font: 'Lato', sans-serif;
+$game-font-1: 'Lato', sans-serif;
+$game-font-2: 'Roboto Mono', monospace;
 
 // color theme for star wars game
 $game-bg-color: beige;
@@ -22,10 +23,22 @@ html {
     /* background image credit: https://images5.alphacoders.com/489/489261.jpg */
     background: $game-color-3 url("../images/starwars-background.jpg") no-repeat;
     background-size: 100% 125%;
-    font-family: $game-font;
+    font-family: $game-font-2;
     margin: 0% 2%;
+    .sw-c-img {
+      margin-left: 0% !important;
+      width: 100%;
+    }
     .custom-h1 {
+      font-family: $game-font-2;
       color: $game-color-5;
+      margin-bottom: 0;
+      text-shadow: 5px 3px $game-color-2;
+    }
+    .custom-h4 {
+      font-weight: bold;
+      color: black;
+      text-shadow: 2px 1px $game-color-5;
     }
     .custom-lower-card, .custom-upper-card {
       text-align: center;
@@ -48,6 +61,14 @@ html {
     .sw-card-width {
       width: 100rem;
     }
+    // content wrapper to have a sticky footer
+    // from: https://css-tricks.com/couple-takes-sticky-footer/
+    .content {
+      min-height: calc(80vh - 0px);
+    }
+    .footer {
+      height: 0px;
+    }
     #enemies .sw-card {
       margin: 0% !important;
       color: black;
@@ -63,6 +84,26 @@ html {
         background-color: black; 
         border: 2px solid green;      
       }
+    }
+    #attack-button, .custom-restart-btn {
+      font-family: $game-font-1;
+      background-color: $game-color-2;
+    }
+    #attack-button:hover, .custom-restart-btn:hover {
+      background-color: $game-color-4;
+    }
+    #attack-button:active {
+      background-color: red;
+    }
+    .custom-restart-btn:active {
+      background-color: black;
+      color: $game-color-5;
+    }
+    #attack-results {
+      font-weight: bold;
+      font-size: 90%;
+      color: black;
+      text-shadow: 2px 2px $game-color-5;
     }
   }
 }

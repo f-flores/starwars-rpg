@@ -6,10 +6,20 @@ html body {
   /* background image credit: https://images5.alphacoders.com/489/489261.jpg */
   background: #26221C url("../images/starwars-background.jpg") no-repeat;
   background-size: 100% 125%;
-  font-family: "Lato", sans-serif;
+  font-family: "Roboto Mono", monospace;
   margin: 0% 2%; }
+  html body .sw-c-img {
+    margin-left: 0% !important;
+    width: 100%; }
   html body .custom-h1 {
-    color: #F2F2F2; }
+    font-family: "Roboto Mono", monospace;
+    color: #F2F2F2;
+    margin-bottom: 0;
+    text-shadow: 5px 3px #124559; }
+  html body .custom-h4 {
+    font-weight: bold;
+    color: black;
+    text-shadow: 2px 1px #F2F2F2; }
   html body .custom-lower-card, html body .custom-upper-card {
     text-align: center;
     color: black;
@@ -27,6 +37,10 @@ html body {
     font-size: 80%; }
   html body .sw-card-width {
     width: 100rem; }
+  html body .content {
+    min-height: calc(80vh - 0px); }
+  html body .footer {
+    height: 0px; }
   html body #enemies .sw-card {
     margin: 0% !important;
     color: black;
@@ -38,3 +52,18 @@ html body {
     margin: 0% !important;
     background-color: black;
     border: 2px solid green; }
+  html body #attack-button, html body .custom-restart-btn {
+    font-family: "Lato", sans-serif;
+    background-color: #124559; }
+  html body #attack-button:hover, html body .custom-restart-btn:hover {
+    background-color: #736C63; }
+  html body #attack-button:active {
+    background-color: red; }
+  html body .custom-restart-btn:active {
+    background-color: black;
+    color: #F2F2F2; }
+  html body #attack-results {
+    font-weight: bold;
+    font-size: 90%;
+    color: black;
+    text-shadow: 2px 2px #F2F2F2; }

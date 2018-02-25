@@ -12,7 +12,7 @@
 
 //------------------------------------------------------------------------------------------
 //
-// GLOBAL VARIABLES AND OBJECTS
+// GLOBAL VARIABLES
 //
 const IMG_PATH = "./assets/images/";
 const START_ID = 7;
@@ -23,73 +23,68 @@ const END_ID = 8;
 //
 // MAIN PROCEDURE
 //
-
 $(document).ready(function() {
 //------------------------------------------------------------------------------------------
 // VARIABLES
 //
-  // attack button
   var attackBtn = $("#attack-button");
   var restartBtn = $("#restart-button");
 
   // star war character objects 
   var swChar1 = {
       buttonVal: "character1",
-      charName: "Character1 Name",
+      charName: "Luke Skywalker",
       swCharId: "swchar-1",
-      imgName: "char1.png",
+      imgName: "luke-skywalker.jpg",
       currentSection: 0, 
       charNum: 1,
-      healthPoints: 200,
-      attackPower: 5,
-      counterPower: 6,
-      getAttackPower: function() {
-        return this.attackPower;
-      },
+      healthPoints: 130,
+      attackPower: 9,
+      counterPower: 17,
       resetHealth: function() {
-        return this.healthPoints = 200;
+        return this.healthPoints = 130;
       }
     }, 
     swChar2 = {
       buttonVal: "character2",
-      charName: "Character2 Name",
+      charName: "Lando Calrissian",
       swCharId: "swchar-2",
-      imgName: "char2.png",
+      imgName: "lando.png",
       currentSection: 0, 
       charNum: 2,
-      healthPoints: 100,
-      attackPower: 3,
-      counterPower: 7,
+      healthPoints: 120,
+      attackPower: 8,
+      counterPower: 13,
       resetHealth: function() {
-        return this.healthPoints = 100;
+        return this.healthPoints = 120;
       }
     }, 
     swChar3 = {
       buttonVal: "character3",
-      charName: "Character3 Name",
+      charName: "Princess Leia",
       swCharId: "swchar-3",
-      imgName: "char3.png",
+      imgName: "princess-leia.jpg",
       currentSection: 0,
       charNum: 3,
-      healthPoints: 100,
-      attackPower: 5,
-      counterPower: 9,
+      healthPoints: 140,
+      attackPower: 7,
+      counterPower: 14,
       resetHealth: function() {
-        return this.healthPoints = 100;
+        return this.healthPoints = 140;
       } 
     }, 
     swChar4 = {
       buttonVal: "character4",
-      charName: "Character4 Name",
+      charName: "Darth Vader",
       swCharId: "swchar-4",
-      imgName: "char4.png",
+      imgName: "darth-vader.png",
       currentSection: 0,
       charNum: 4,
-      healthPoints: 100,
-      attackPower: 3,
-      counterPower: 5,
+      healthPoints: 150,
+      attackPower: 10,
+      counterPower: 21,
       resetHealth: function() {
-        return this.healthPoints = 100;
+        return this.healthPoints = 150;
       } 
     };
 
@@ -152,7 +147,7 @@ $(document).ready(function() {
       // append paragraph to upper card body
       $(upperCardBody).append(upperCardPar);
       // add classes and attributes to swImg
-      $(swImg).addClass("sw-char img-fluid card-img-top ml-1 mr-1");
+      $(swImg).addClass("sw-c-img img-fluid card-img-top ml-1 mr-1");
       $(swImg).attr("id",obj.swCharId+"-img");
       $(swImg).attr("src",imgFile);
       $(swImg).attr("alt",obj.charName);
@@ -297,7 +292,8 @@ $(document).ready(function() {
       var restartButton = $("<button>");
 
       // assemble fight section's text
-      sText = swObjArray[hIndex].charName + " attacked " + swObjArray[eIndex].charName + " for ";
+      $("#attack-results").css("font-size","90%");
+      sText = "You attacked " + swObjArray[eIndex].charName + " for ";
       sText += swObjArray[hIndex].attackPower + " damage.<br />";
       sText += swObjArray[eIndex].charName + " attacked you back for " + swObjArray[eIndex].counterPower + ".";
 
@@ -324,6 +320,8 @@ $(document).ready(function() {
           sText += "You can choose to fight another enemy.";
         } else {
           console.log("You won the game!!!");
+          console.log(" ");
+          $("#attack-results").css("font-size","180%");
           sText = "You won the game!!";
           gameState.isGameOver = true;
         }
@@ -336,12 +334,13 @@ $(document).ready(function() {
         gameState.isGameOver = true;
         console.log("You lose!");
         sText = "You have been defeated... GAME OVER!";
+        $("#attack-results").css("font-size","180%");
         $("#attack-results").html(sText);
       }
 
       // if game is over, show restart button
       if (gameState.isGameOver) {
-        restartButton.addClass("btn btn-secondary ml-3");
+        restartButton.addClass("btn btn-secondary ml-3 custom-restart-btn");
         restartButton.text("Restart");
         $("#restart-button").append(restartButton);
         restartButton.on("click", initializeGame);

@@ -5,56 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet">
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery.js"></script>
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>Star Wars RPG</title>
 </head>
 <body>
-  <header class="row">
-    <div class="container">  
-      <h1 class="display-3 col-sm-12 col-md-12 offset-lg-3 col-lg-8 custom-h1">Star Wars RPG</h1>
+  <div class="content">
+    <header class="row">
+      <div class="container">
+        <h1 class="display-4 col-sm-12 col-md-12 offset-lg-3 col-lg-8 custom-h1">Star Wars RPG</h1>
+      </div>
+    </header>
+  
+    <section class="row" id="initial">
+    </section>
+  
+    <section id="available-chars" class="row">
+    </section>
+  
+    <section class="row">
+      <h4 class="custom-h4">Your Character</h4>
+    </section>
+  
+    <section id="hero" class="row">
+      <h4 class="custom-h4">Hero</h4>
+    </section>
+  
+    <section class="row">
+      <h4 class="custom-h4">Enemies Available to Attack</h4>
+    </section>
+  
+    <section id="enemies" class="row"></section>
+  
+    <section class="row">
+      <h4 class="custom-h4">Fight Section</h4>
+    </section>
+  
+    <section id="current-enemy" class="row"></section>
+  
+    <button id="attack-button" class="btn btn-secondary">Attack</button>
+  
+    <section class="row">
+      <h4 class="custom-h4">Defender</h4>
+    </section>
+  
+    <div>
+      <section id="current-defender" class="row"></section>
+      <p id="attack-results"></p>
+      <section id="restart-button" class="row"></section>
     </div>
-  </header>
-
-  <section class="row" id="initial">
-  </section>
-
-  <section id="available-chars" class="row">
-  </section>
-
-  <section class="row">
-    <h2>Your Character</h2>
-  </section>
-
-  <section id="hero" class="row">
-    <h2>Hero</h2>
-  </section>
-
-  <section class="row">
-      <h2>Enemies Available to Attack</h2>
-  </section>
-
-  <section id="enemies" class="row"></section>
-
-  <section class="row">
-    <h2>Fight Section</h2>
-  </section>
-
-  <section id="current-enemy" class="row"></section>
-
-  <button id="attack-button" class="btn btn-secondary"> Attack</button>
-
-  <section class="row">
-    <h2>Defender</h2>
-  </section>
-
-  <div>
-    <section id="current-defender" class="row"></section>
-    <p id="attack-results"></p>
-    <section id="restart-button" class="row"></section>
   </div>
+
+  <footer class="footer"></footer>
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
