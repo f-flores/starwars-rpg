@@ -1,0 +1,22 @@
+/* stylesheet */
+
+$game-font: 'Lato', sans-serif;
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+//  background-image: url("../images/intersection.png");
+  background-color: beige;
+  font-family: $game-font;
+  margin: 0% 2%;
+  .sw-text {
+    font-weight: bold;
+    font-size: 80%;
+  }
+  .sw-card-width {
+   // width: 100rem;
+  }
+}
