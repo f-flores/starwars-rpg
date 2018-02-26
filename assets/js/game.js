@@ -38,11 +38,11 @@ $(document).ready(function() {
       imgName: "luke-skywalker.jpg",
       currentSection: 0, 
       charNum: 1,
-      healthPoints: 130,
+      healthPoints: 133,
       attackPower: 9,
-      counterPower: 15,
+      counterPower: 14,
       resetHealth: function() {
-        return 130;        
+        return 133;        
       },
       resetAttackPower: function() {
         return 9;
@@ -55,16 +55,14 @@ $(document).ready(function() {
       imgName: "lando.png",
       currentSection: 0, 
       charNum: 2,
-      healthPoints: 120,
-      attackPower: 8,
+      healthPoints: 127,
+      attackPower: 7,
       counterPower: 13,
       resetHealth: function() {
-    //    return this.healthPoints = 120;
-        return 120;
+        return 123;
       },
       resetAttackPower: function() {
-   //     return this.attackPower = 8;
-        return 8;
+        return 7;
       }
     }, 
     swChar3 = {
@@ -74,15 +72,13 @@ $(document).ready(function() {
       imgName: "princess-leia.jpg",
       currentSection: 0,
       charNum: 3,
-      healthPoints: 140,
+      healthPoints: 141,
       attackPower: 9,
-      counterPower: 14,
+      counterPower: 12,
       resetHealth: function() {
-     //   return this.healthPoints = 140;
-        return 140;
+        return 141;
       },
       resetAttackPower: function() {
-     //   return this.attackPower = 9;
         return 9;
       } 
     }, 
@@ -93,12 +89,11 @@ $(document).ready(function() {
       imgName: "darth-vader.png",
       currentSection: 0,
       charNum: 4,
-      healthPoints: 150,
+      healthPoints: 184,
       attackPower: 10,
-      counterPower: 17,
+      counterPower: 19,
       resetHealth: function() {
-     //   return this.healthPoints = 150;
-        return 150;
+        return 184;
       },
       resetAttackPower: function() {
      //   return this.attackPower = 10;
@@ -185,20 +180,34 @@ $(document).ready(function() {
   }
 
   /*******************************************************************************
+   * reloadPage() reloads page and resets array object values
+   */
+  function reloadPage() {
+    if (gameState.isGameOver) {
+      location.reload();
+      gameState.isGameOver = false;
+    }
+  }
+
+  /*******************************************************************************
    * initializeGame() empties out game's sections, resets gameState variables
    * and builds initial star war character cards
    */
   function initializeGame() {
     console.log("in initializeGame()");
+    // reloads page to reset left over attack power values after two or more games
+    reloadPage();
 
     // empty section elements 
     $("#available-chars, #hero, #enemies, #current-defender, #attack-results, #restart-button").empty();
     $("#attack-results").css("font-size","90%");
 
+    attackBtn.blur();
+
     // reset game state booleans to false
+    gameState.isGameOver = false;
     gameState.isHeroSelected = false;
     gameState.isEnemySelected = false;
-    gameState.isGameOver = false;
     gameState.attackIncrement = 0;
     gameState.enemiesRemaining = swObjArray.length - 1;
 
@@ -332,9 +341,9 @@ $(document).ready(function() {
       console.log("fight Hero swObj["+hIndex+"]attackPwr: " + swObjArray[hIndex].attackPower);
       console.log("fight Hero swObj["+hIndex+"]counterPwr: " + swObjArray[hIndex].counterPower);
       console.log("fight Hero gameState.attackIncrement: " + gameState.attackIncrement);
-      console.log("fight Enemy swObj["+hIndex+"]health: " + swObjArray[eIndex].healthPoints);
-      console.log("fight Enemy swObj["+hIndex+"]attackPwr: " + swObjArray[eIndex].attackPower);
-      console.log("fight Enemy swObj["+hIndex+"]counterPwr: " + swObjArray[eIndex].counterPower);
+      console.log("fight Enemy swObj["+eIndex+"]health: " + swObjArray[eIndex].healthPoints);
+      console.log("fight Enemy swObj["+eIndex+"]attackPwr: " + swObjArray[eIndex].attackPower);
+      console.log("fight Enemy swObj["+eIndex+"]counterPwr: " + swObjArray[eIndex].counterPower);
       //console.log("fight Enemy gameState.attackIncrement: " + gameState.attackIncrement);
 
       // assemble fight section's text
@@ -399,6 +408,7 @@ $(document).ready(function() {
 
 
   function doGameRoutine() {
+ //   reloadPage();
     initializeGame();
     selectHero();
     selectEnemy();
@@ -406,14 +416,6 @@ $(document).ready(function() {
   }
 
   doGameRoutine();
-  
-        // if game is over, show restart button
-/*   if (gameState.isGameOver) {
-    restartButton.addClass("btn btn-secondary ml-3 custom-restart-btn");
-    restartButton.text("Restart");
-    $("#restart-button").append(restartButton);
-    restartButton.on("click", initializeGame);
-  } */
 
 }); // End of document.ready function
 
