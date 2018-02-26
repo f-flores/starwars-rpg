@@ -8,9 +8,13 @@ html body {
   background-size: 100% 125%;
   font-family: "Roboto Mono", monospace;
   margin: 0% 2%; }
+  html body .sound-button, html body .mute-button {
+    margin-top: 15px;
+    font-size: 75%;
+    height: 50%; }
   html body .sw-c-img {
-    margin-left: 7% !important;
-    width: 85%; }
+    margin-left: 0% !important;
+    width: 90%; }
   html body .custom-h1 {
     font-family: "Roboto Mono", monospace;
     color: #F2F2F2;

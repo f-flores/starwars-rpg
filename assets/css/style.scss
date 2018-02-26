@@ -25,6 +25,11 @@ html {
     background-size: 100% 125%;
     font-family: $game-font-2;
     margin: 0% 2%;
+    .sound-button, .mute-button {
+      margin-top: 15px;
+      font-size: 75%;
+      height: 50%;
+    }
     .sw-c-img {
       margin-left: 0% !important;
       width: 90%;

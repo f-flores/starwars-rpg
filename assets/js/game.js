@@ -17,6 +17,8 @@
 const IMG_PATH = "./assets/images/";
 const START_ID = 7;
 const END_ID = 8;
+var Game_Sound = false;
+
 
 
 //------------------------------------------------------------------------------------------
@@ -29,7 +31,16 @@ $(document).ready(function() {
 //
   var attackBtn = $("#attack-button");
   var restartBtn = $("#restart-button");
-
+  // Get game theme music
+  var audioElement = document.createElement("audio");
+  var gameAudioEffect = document.createElement("audio");
+  // Music source "https://archive.org/details/JohnWilliamsStarWarsMainThemeFULL"
+  // Credit for game sound effects:
+  //     Winning sound: https://freesound.org/people/fins/sounds/171670/
+  //     Losing sound: https://freesound.org/people/noirenex/sounds/159408/
+  //     Attack laser: https://freesound.org/people/nsstudios/sounds/321102/
+  audioElement.setAttribute("src", "./assets/audio/john-williams-star-wars-theme.ogg");
+  
   // star war character objects 
   var swChar1 = {
       buttonVal: "character1",
@@ -109,15 +120,35 @@ $(document).ready(function() {
     isEnemySelected: false,
     isHeroSelected: false,
     isGameOver: false,
+    soundOn: false,
     currentHero: 0,
     currentEnemy: 0,
     attackIncrement: 0,
     enemiesRemaining: swObjArray.length - 1
   }
 
+  // audio objects
+ // var audio = new Audio("https://p.scdn.co/mp3-preview/ed5a443bc86176135ebca8a114f66f4d814d4c90");
+  //var bgTheme = new Audio("../audio/john-williams-star-wars-theme.ogg");
+
 //------------------------------------------------------------------------------------------
 // FUNCTIONS
 //
+  // Play sound button
+  $(".sound-button").on("click", function() {
+    audioElement.play();
+    gameAudioEffect.muted = false;
+    sessionStorage.setItem('soundOn', 'true');
+  });
+  
+  // Mute button
+  $(".mute-button").on("click", function() {
+    audioElement.pause();
+    gameAudioEffect.muted = true;
+    sessionStorage.setItem('soundOn', 'false');
+  });
+
+
   /*******************************************************************************
    * displayStarwarChars() builds the block elements in order to create the star
    *   war character cards. The function makes use of the star war object array
@@ -183,9 +214,16 @@ $(document).ready(function() {
    * reloadPage() reloads page and resets array object values
    */
   function reloadPage() {
+    var soundOn = sessionStorage.getItem('soundOn');
+    console.log("soundOn: " + soundOn);
     if (gameState.isGameOver) {
       location.reload();
       gameState.isGameOver = false;
+      // keeps music background if user selected "sound" button
+      // feature does not work currently
+      if (soundOn === "true") {
+        audioElement.play();
+      }
     }
   }
 
@@ -226,7 +264,6 @@ $(document).ready(function() {
     // build available character list
     displayStarwarChars();
 
-    // later, put music background, default is mute 
   }
 
   /*******************************************************************************
@@ -254,11 +291,6 @@ $(document).ready(function() {
         swObjArray[indexSwCard].currentSection = 1; // 1 represents hero's section
         gameState.currentHero = indexSwCard; // save index of hero selected
         gameState.attackIncrement = swObjArray[indexSwCard].attackPower;
-
-        console.log("selHero swObj["+indexSwCard+"]health: " + swObjArray[indexSwCard].healthPoints);
-        console.log("selHero swObj["+indexSwCard+"]attackPwr: " + swObjArray[indexSwCard].attackPower);
-        console.log("selHero swObj["+indexSwCard+"]counterPwr: " + swObjArray[indexSwCard].counterPower);
-        console.log("selHero gameState.attackIncrement: " + gameState.attackIncrement);
 
         // have hero character disappear from section, without deleting its content
         $(heroId).detach();
@@ -304,10 +336,6 @@ $(document).ready(function() {
         console.log("card: " + $(this).attr("id") + " section: " + swObjArray[indexSwCard].currentSection);
         swObjArray[indexSwCard].currentSection = 3; // 3 represents the defender section
         gameState.currentEnemy = indexSwCard; // save index
-        console.log("selEnemy swObj["+indexSwCard+"]health: " + swObjArray[indexSwCard].healthPoints);
-        console.log("selEnemy swObj["+indexSwCard+"]attackPwr: " + swObjArray[indexSwCard].attackPower);
-        console.log("selEnemy swObj["+indexSwCard+"]counterPwr: " + swObjArray[indexSwCard].counterPower);
-        console.log("selEnemy gameState.attackIncrement: " + gameState.attackIncrement);
 
         // have enemy character disappear from 'enemies' section, without deleting its content
         $(enemyId).detach();
@@ -337,14 +365,10 @@ $(document).ready(function() {
       var eIndex = gameState.currentEnemy;
       console.log("attackIncrement: " + gameState.attackIncrement);
       var restartButton = $("<button>");
-      console.log("fight Hero swObj["+hIndex+"]health: " + swObjArray[hIndex].healthPoints);
-      console.log("fight Hero swObj["+hIndex+"]attackPwr: " + swObjArray[hIndex].attackPower);
-      console.log("fight Hero swObj["+hIndex+"]counterPwr: " + swObjArray[hIndex].counterPower);
-      console.log("fight Hero gameState.attackIncrement: " + gameState.attackIncrement);
-      console.log("fight Enemy swObj["+eIndex+"]health: " + swObjArray[eIndex].healthPoints);
-      console.log("fight Enemy swObj["+eIndex+"]attackPwr: " + swObjArray[eIndex].attackPower);
-      console.log("fight Enemy swObj["+eIndex+"]counterPwr: " + swObjArray[eIndex].counterPower);
-      //console.log("fight Enemy gameState.attackIncrement: " + gameState.attackIncrement);
+
+      // laser attack sound effect
+      gameAudioEffect.setAttribute("src","./assets/audio/321102__nsstudios__laser1.wav");
+      gameAudioEffect.play();
 
       // assemble fight section's text
       $("#attack-results").css("font-size","90%");
@@ -379,6 +403,21 @@ $(document).ready(function() {
           console.log(" ");
           $("#attack-results").css("font-size","180%");
           sText = "You won the game!!";
+          gameAudioEffect.setAttribute("src","./assets/audio/171670__fins__success-2.wav");
+          var playPromise = gameAudioEffect.play();
+          if (playPromise !== undefined) {
+            playPromise.then(_ => {
+              // Automatic playback started!
+              // Show playing UI.
+              gameAudioEffect.play();
+            })
+            .catch(error => {
+              // Auto-play was prevented
+              // Show paused UI.
+              console.log("caught sound error");
+              gameAudioEffect.pause();
+            });
+          }
           gameState.isGameOver = true;
         }
         $("#attack-results").html(sText);
@@ -389,6 +428,8 @@ $(document).ready(function() {
       if ((swObjArray[hIndex].healthPoints <= 0) && swObjArray[eIndex].healthPoints > 0) {
         gameState.isGameOver = true;
         console.log("You lose!");
+        gameAudioEffect.setAttribute("src","./assets/audio/159408__noirenex__life-lost-game-over.wav");
+        gameAudioEffect.play();
         sText = "You have been defeated... GAME OVER!";
         $("#attack-results").css("font-size","180%");
         $("#attack-results").html(sText);
@@ -408,7 +449,6 @@ $(document).ready(function() {
 
 
   function doGameRoutine() {
- //   reloadPage();
     initializeGame();
     selectHero();
     selectEnemy();
