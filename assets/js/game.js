@@ -352,7 +352,7 @@ var gameState = {
   }
 
   /*****************************************************************************************
-   * selectEnemy picks enemy hero fights against
+   * selectEnemy picks enemy that the character hero fights against
    */
   function selectEnemy() {
     $(".sw-card").on("click", function() {
