@@ -7,7 +7,7 @@ html body {
   background: #26221C url("../images/starwars-background.jpg") no-repeat;
   background-size: 100% 125%;
   font-family: "Roboto Mono", monospace;
-  margin: 0% 2%; }
+  margin: 0% 3%; }
   html body .sound-button, html body .mute-button {
     margin-top: 15px;
     font-size: 75%;
@@ -57,6 +57,7 @@ html body {
     background-color: black;
     border: 2px solid green; }
   html body #attack-button, html body .custom-restart-btn {
+    margin-left: 5px;
     font-family: "Lato", sans-serif;
     background-color: #124559; }
   html body #attack-button:hover, html body .custom-restart-btn:hover {

@@ -29,7 +29,7 @@ $(document).ready(function() {
 //------------------------------------------------------------------------------------------
 // VARIABLES
 //
-  var attackBtn = $("#attack-button");
+  var attackBtn;
   var restartBtn = $("#restart-button");
   // Get game theme music
   var audioElement = document.createElement("audio");
@@ -40,83 +40,108 @@ $(document).ready(function() {
   //     Losing sound: https://freesound.org/people/noirenex/sounds/159408/
   //     Attack laser: https://freesound.org/people/nsstudios/sounds/321102/
   audioElement.setAttribute("src", "./assets/audio/john-williams-star-wars-theme.ogg");
+  var mySwChars = {
+    luke: {health: 133, attack: 11, counter: 12},
+    lando: {health: 137, attack: 8, counter: 11},
+    leia: {health: 148, attack: 9, counter: 12},
+    darth: {health: 184, attack: 10, counter: 18}
+  }
   
-  // star war character objects 
-  var swChar1 = {
-      buttonVal: "character1",
-      charName: "Luke Skywalker",
-      swCharId: "swchar-1",
-      imgName: "luke-skywalker.jpg",
-      currentSection: 0, 
-      charNum: 1,
-      healthPoints: 133,
-      attackPower: 9,
-      counterPower: 14,
-      resetHealth: function() {
-        return 133;        
-      },
-      resetAttackPower: function() {
-        return 9;
-      }
-    }, 
-    swChar2 = {
-      buttonVal: "character2",
-      charName: "Lando Calrissian",
-      swCharId: "swchar-2",
-      imgName: "lando.png",
-      currentSection: 0, 
-      charNum: 2,
-      healthPoints: 127,
-      attackPower: 7,
-      counterPower: 13,
-      resetHealth: function() {
-        return 123;
-      },
-      resetAttackPower: function() {
-        return 7;
-      }
-    }, 
-    swChar3 = {
-      buttonVal: "character3",
-      charName: "Princess Leia",
-      swCharId: "swchar-3",
-      imgName: "princess-leia.jpg",
-      currentSection: 0,
-      charNum: 3,
-      healthPoints: 141,
-      attackPower: 9,
-      counterPower: 12,
-      resetHealth: function() {
-        return 141;
-      },
-      resetAttackPower: function() {
-        return 9;
-      } 
-    }, 
-    swChar4 = {
-      buttonVal: "character4",
-      charName: "Darth Vader",
-      swCharId: "swchar-4",
-      imgName: "darth-vader.png",
-      currentSection: 0,
-      charNum: 4,
-      healthPoints: 184,
-      attackPower: 10,
-      counterPower: 19,
-      resetHealth: function() {
-        return 184;
-      },
-      resetAttackPower: function() {
-     //   return this.attackPower = 10;
-        return 10;
-      }
-    };
-
+// star war character objects
+var swChar1, swChar2, swChar3, swChar4;
+ 
 // the data structure for the characters is an array of objects
-  var swObjArray = [ swChar1, swChar2, swChar3, swChar4];
+var swObjArray = [];
+
+swChar1 = new Object();
+swChar2 = new Object();
+swChar3 = new Object();
+swChar4 = new Object();
+swChar1 = {
+  buttonVal: "character1",
+  charName: "Luke Skywalker",
+  swCharId: "swchar-1",
+  imgName: "luke-skywalker.jpg",
+  currentSection: 0, 
+  charNum: 1,
+  healthPoints: mySwChars["luke"].health,
+  attackPower: mySwChars["luke"].attack,
+  counterPower: mySwChars["luke"].counter,
+  resetHealth: function() {
+    return mySwChars["luke"].health;        
+  },
+  resetAttackPower: function() {
+    return mySwChars["luke"].attack;
+  },
+  resetCounterPower: function() {
+    return mySwChars["luke"].counter;
+  }
+}, 
+swChar2 = {
+  buttonVal: "character2",
+  charName: "Lando Calrissian",
+  swCharId: "swchar-2",
+  imgName: "lando.png",
+  currentSection: 0, 
+  charNum: 2,
+  healthPoints: mySwChars["lando"].health,
+  attackPower: mySwChars["lando"].attack,
+  counterPower: mySwChars["lando"].counter,
+  resetHealth: function() {
+    return mySwChars["lando"].health;
+  },
+  resetAttackPower: function() {
+    return mySwChars["lando"].attack;
+  },
+  resetCounterPower: function() {
+    return mySwChars["lando"].counter;
+  }
+}, 
+swChar3 = {
+  buttonVal: "character3",
+  charName: "Princess Leia",
+  swCharId: "swchar-3",
+  imgName: "princess-leia.jpg",
+  currentSection: 0,
+  charNum: 3,
+  healthPoints: mySwChars["leia"].health,
+  attackPower: mySwChars["leia"].attack,
+  counterPower: mySwChars["leia"].counter,
+  resetHealth: function() {
+    return mySwChars["leia"].health;
+  },
+  resetAttackPower: function() {
+    return mySwChars["leia"].attack;
+  },
+  resetCounterPower: function() {
+    return mySwChars["leia"].counter;
+  }
+}, 
+swChar4 = {
+  buttonVal: "character4",
+  charName: "Darth Vader",
+  swCharId: "swchar-4",
+  imgName: "darth-vader.png",
+  currentSection: 0,
+  charNum: 4,
+  healthPoints: mySwChars["darth"].health,
+  attackPower: mySwChars["darth"].attack,
+  counterPower: mySwChars["darth"].counter,
+  resetHealth: function() {
+    return mySwChars["darth"].health;
+  },
+  resetAttackPower: function() {
+    return mySwChars["darth"].attack;
+  },
+  resetCounterPower: function() {
+    return mySwChars["darth"].counter;
+  }
+};
+
+swObjArray = [ swChar1, swChar2, swChar3, swChar4];
 
 // game state variables
-  var gameState = {
+var gameState = {
     isEnemySelected: false,
     isHeroSelected: false,
     isGameOver: false,
@@ -137,28 +162,32 @@ $(document).ready(function() {
   // Play sound button
   $(".sound-button").on("click", function() {
     audioElement.play();
-    gameAudioEffect.muted = false;
-    sessionStorage.setItem('soundOn', 'true');
+    gameAudioEffect.play();
+    Game_Sound = true;
+  //  gameAudioEffect.muted = false;
+  //  sessionStorage.setItem('soundOn', 'true');
   });
   
   // Mute button
   $(".mute-button").on("click", function() {
     audioElement.pause();
-    gameAudioEffect.muted = true;
-    sessionStorage.setItem('soundOn', 'false');
+    gameAudioEffect.pause();
+    Game_Sound = false;
+   // gameAudioEffect.muted = true;
+   // sessionStorage.setItem('soundOn', 'false');
   });
 
 
   /*******************************************************************************
-   * displayStarwarChars() builds the block elements in order to create the star
+   * create StarwarChars() builds the block elements in order to create the star
    *   war character cards. The function makes use of the star war object array
    *   to obtain the relevant data for each character. id's are created to later
    *   access the cards.
    */
-  function displayStarwarChars() {
+  function createStarwarChars() {
     // traverse swObjArray, dynamically create objects 
     $.each(swObjArray, function( index, obj ) {
-      console.log( index + ": " + obj.charName );
+      // console.log( index + ": " + obj.charName );
       // block elements used to build each character's 'game card'
       var divCardOuter = $("<div>");
       var divCardInner = $("<div>");
@@ -211,13 +240,30 @@ $(document).ready(function() {
   }
 
   /*******************************************************************************
+   * buildGameContent() creates star war character cards dynamically and the 
+   * attack button
+   */
+  function buildGameContent() {
+    createStarwarChars();
+
+    // build attack button
+    attackBtn = $("<button>");
+    attackBtn.addClass("btn btn-secondary custom-attack")
+             .attr("id","attack-button")
+             .text("Attack");
+    $("#current-enemy").append(attackBtn);
+  }
+
+
+
+  /*******************************************************************************
    * reloadPage() reloads page and resets array object values
    */
   function reloadPage() {
     var soundOn = sessionStorage.getItem('soundOn');
     console.log("soundOn: " + soundOn);
     if (gameState.isGameOver) {
-      location.reload();
+      //location.reload();
       gameState.isGameOver = false;
       // keeps music background if user selected "sound" button
       // feature does not work currently
@@ -232,15 +278,10 @@ $(document).ready(function() {
    * and builds initial star war character cards
    */
   function initializeGame() {
-    console.log("in initializeGame()");
-    // reloads page to reset left over attack power values after two or more games
-    reloadPage();
-
-    // empty section elements 
+    // empty section elements
     $("#available-chars, #hero, #enemies, #current-defender, #attack-results, #restart-button").empty();
+    $("#attack-button").remove(); // delete data associated with button and remove element
     $("#attack-results").css("font-size","90%");
-
-    attackBtn.blur();
 
     // reset game state booleans to false
     gameState.isGameOver = false;
@@ -253,25 +294,23 @@ $(document).ready(function() {
     $.each(swObjArray, function( index, obj ) {
       obj.healthPoints = obj.resetHealth();
       obj.attackPower = obj.resetAttackPower();
+      obj.counterPower = obj.resetCounterPower();
       obj.currentSection = 0;
       $("#" + obj.swCharId + "-health").text("Health: " + obj.healthPoints);
-      console.log("init obj.healthPoints: " + obj.healthPoints);
-      console.log("init obj.AttackPower: " + obj.attackPower);
-      console.log("init obj.CounterPower: " + obj.counterPower);
-      console.log("init gameState.attackIncrement: " + gameState.attackIncrement);
+      // console.log("init obj.healthPoints: " + obj.healthPoints);
+      // console.log("init obj.AttackPower: " + obj.attackPower);
+      // console.log("init obj.CounterPower: " + obj.counterPower);
+      // console.log("init gameState.attackIvncrement: " + gameState.attackIncrement);
     });
 
-    // build available character list
-    displayStarwarChars();
-
+    // builds game content, star war character cards and game attack button 
+    buildGameContent();
   }
 
   /*******************************************************************************
    * selectHero() on clicking a button image of a star war character
    */
   function selectHero() {
- 
-    console.log("in selectHero()");
     var heroId = "";
     var enemyId = "";
     var indexSwCard = 0;
@@ -280,14 +319,11 @@ $(document).ready(function() {
       // get index of card clicked in swObjArray -- dependent on way card's 'id' is named
       // 'id' is of the form 'swchar-1-card', so number of card is always in seventh position
       indexSwCard = parseInt($(this).attr("id").slice(START_ID,END_ID)) - 1; 
-      console.log("indexSwCard: " + indexSwCard +" currSection: "+swObjArray[indexSwCard].currentSection);
       // only if card's current section value is 0... to avoid having multiple heroes
       if ( (swObjArray[indexSwCard].currentSection === 0) && (gameState.isHeroSelected === false) ) {
         // get star war's character id from card-'s value
         heroId = $("#" + $(this).attr("id"));
-
-        console.log("indexSwCard: " + indexSwCard);
-        console.log("card: " + $(this).attr("id") + " section: " + swObjArray[indexSwCard].currentSection);
+        // console.log("card: " + $(this).attr("id") + " section: " + swObjArray[indexSwCard].currentSection);
         swObjArray[indexSwCard].currentSection = 1; // 1 represents hero's section
         gameState.currentHero = indexSwCard; // save index of hero selected
         gameState.attackIncrement = swObjArray[indexSwCard].attackPower;
@@ -299,18 +335,17 @@ $(document).ready(function() {
 
         // the non-clicked cards will be moved to the enemies section
         $.each(swObjArray, function( index, obj ) {
-          console.log("in each loop");
           if (obj.currentSection !== 1) {
             enemyId = $("#" + obj.swCharId + "-card");
             obj.currentSection = 2; // 2 represent's enemies section section
             $(enemyId).detach();
             $("#enemies").append(enemyId);
           }
-          console.log("obj.charName: " + obj.charName + " obj.currentSection: " + obj.currentSection);
+          // console.log("obj.charName: " + obj.charName + " obj.currentSection: " + obj.currentSection);
         });
 
         gameState.isHeroSelected = true;
-        console.log("obj current section: " + swObjArray[indexSwCard].currentSection);
+        // console.log("obj current section: " + swObjArray[indexSwCard].currentSection);
       }
 
     }); 
@@ -320,28 +355,18 @@ $(document).ready(function() {
    * selectEnemy picks enemy hero fights against
    */
   function selectEnemy() {
-    console.log("inSelectEnemy");
-    
     $(".sw-card").on("click", function() {
-
-      console.log("in select enemy click");
       indexSwCard = parseInt($(this).attr("id").slice(START_ID,END_ID)) - 1; 
       // only if card's current section value is 2... to avoid having multiple enemies
       if ( (swObjArray[indexSwCard].currentSection === 2) && (gameState.isEnemySelected === false)) {
-        console.log("potential enemy selected");
         // get star war's character id from card-'s value
         enemyId = $("#" + $(this).attr("id"));
-
-        console.log("indexSwCard: " + indexSwCard);
-        console.log("card: " + $(this).attr("id") + " section: " + swObjArray[indexSwCard].currentSection);
         swObjArray[indexSwCard].currentSection = 3; // 3 represents the defender section
         gameState.currentEnemy = indexSwCard; // save index
-
         // have enemy character disappear from 'enemies' section, without deleting its content
         $(enemyId).detach();
         // attach enemy character selected to '#current-defender' div
         $("#current-defender").append(enemyId);
-        console.log("obj current section: " + swObjArray[indexSwCard].currentSection);
         gameState.isEnemySelected = true;
         $("#attack-results").empty();
       }
@@ -358,17 +383,16 @@ $(document).ready(function() {
       $("#attack-results").html("No enemy here.");
     } 
 
-    // fight is enabled if hero and defender are present
+    // fight is enabled if hero and defender are present, and game is not over
     if (gameState.isHeroSelected && gameState.isEnemySelected && !gameState.isGameOver) {
       var sText = "";
       var hIndex = gameState.currentHero;
       var eIndex = gameState.currentEnemy;
-      console.log("attackIncrement: " + gameState.attackIncrement);
       var restartButton = $("<button>");
 
       // laser attack sound effect
       gameAudioEffect.setAttribute("src","./assets/audio/321102__nsstudios__laser1.wav");
-      gameAudioEffect.play();
+      if (Game_Sound) gameAudioEffect.play();
 
       // assemble fight section's text
       $("#attack-results").css("font-size","90%");
@@ -386,8 +410,6 @@ $(document).ready(function() {
 
       // update hero's attackPower
       swObjArray[hIndex].attackPower += gameState.attackIncrement;
-      console.log("Attack power: " + swObjArray[hIndex].attackPower);
-      console.log("hero and enemy selected. fight can begin");
       $("#attack-results").html(sText);
 
       // check for enemy's health, hero wins if enemy's HP healthPoints are 0 or less
@@ -399,17 +421,16 @@ $(document).ready(function() {
           sText = "You have defeated " + swObjArray[eIndex].charName + ", ";
           sText += "you can choose to fight another enemy.";
         } else {
-          console.log("You won the game!!!");
-          console.log(" ");
           $("#attack-results").css("font-size","180%");
           sText = "You won the game!!";
           gameAudioEffect.setAttribute("src","./assets/audio/171670__fins__success-2.wav");
-          var playPromise = gameAudioEffect.play();
+          var playPromise;
+          if (Game_Sound) playPromise= gameAudioEffect.play();
           if (playPromise !== undefined) {
             playPromise.then(_ => {
               // Automatic playback started!
               // Show playing UI.
-              gameAudioEffect.play();
+              if (Game_Sound) gameAudioEffect.play();
             })
             .catch(error => {
               // Auto-play was prevented
@@ -429,7 +450,7 @@ $(document).ready(function() {
         gameState.isGameOver = true;
         console.log("You lose!");
         gameAudioEffect.setAttribute("src","./assets/audio/159408__noirenex__life-lost-game-over.wav");
-        gameAudioEffect.play();
+        if (Game_Sound) gameAudioEffect.play();
         sText = "You have been defeated... GAME OVER!";
         $("#attack-results").css("font-size","180%");
         $("#attack-results").html(sText);
@@ -443,8 +464,6 @@ $(document).ready(function() {
         restartButton.on("click", doGameRoutine);
       }
     }
-    console.log("in fight section");
-    console.log("heroSelected, enemySelected: " + gameState.isHeroSelected + " " + gameState.isEnemySelected);
   }
 
 

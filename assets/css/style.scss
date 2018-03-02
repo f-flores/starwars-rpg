@@ -24,7 +24,7 @@ html {
     background: $game-color-3 url("../images/starwars-background.jpg") no-repeat;
     background-size: 100% 125%;
     font-family: $game-font-2;
-    margin: 0% 2%;
+    margin: 0% 3%;
     .sound-button, .mute-button {
       margin-top: 15px;
       font-size: 75%;
@@ -91,6 +91,7 @@ html {
       }
     }
     #attack-button, .custom-restart-btn {
+      margin-left: 5px;
       font-family: $game-font-1;
       background-color: $game-color-2;
     }
